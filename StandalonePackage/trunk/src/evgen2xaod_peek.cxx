@@ -17,6 +17,9 @@
 int main() {
   TApplication theApp("App",0,0);
 
+  std::cout << "hello and bye..." << std::endl;
+  return 0;
+
   POOL::TEvent evt;
   evt.readFrom("$TestArea/evgen/my.evgen.root");
 

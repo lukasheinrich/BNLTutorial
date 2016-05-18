@@ -6,5 +6,5 @@ services:
 
 script:
   - docker build -t lukasheinrich/myownbuild .
-  - docker run -it -v $PWD/testrun:/io lukasheinrich/myownbuild bash -i -c 'MyApp.exe /io/my.evgen.root /io/plot.png'
+  - docker run -it -v $PWD/testinputs:/io lukasheinrich/myownbuild bash -i -c 'MyApp.exe /io/my.evgen.root /io/plot.png'
   - ls -lrt testrun

@@ -59,6 +59,10 @@ int main(int argc, char* argv[]) {
     //myAlg->execute(); - don't need this, the EventLoop will execute it for us
     tool->addBranches();
     
+    if(i%100==0){
+      std::cout << "processing event " << i << std::endl;
+    }
+    
     //retrieve the truth
     const xAOD::TruthParticleContainer* mc = 0;
     evt.retrieve( mc );
@@ -91,7 +95,7 @@ int main(int argc, char* argv[]) {
   }
 
         
-  
+  std::cout << "moving on to plotting..." << std::endl;
   TCanvas c;
   m_ll[1]->SetLineColor(kRed);
   m_ll[0]->Draw();m_ll[1]->Draw("same");

@@ -1,0 +1,9 @@
+sudo: required
+language: python
+
+services:
+- docker
+
+script:
+  - docker build -t lukasheinrich/myownbuild .
+  - docker run -it lukasheinrich/myownbuild ls -lrt

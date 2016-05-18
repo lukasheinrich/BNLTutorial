@@ -11,14 +11,22 @@
 #include "TLorentzVector.h"
 #include "TH1D.h"
 #include "TFile.h"
+#include "TCanvas.h"
 
 #include "TApplication.h"
 
-int main() {
-  TApplication theApp("App",0,0);
+int main(int argc, char* argv[]) {
+  // TApplication theApp("App",0,0);
 
   POOL::TEvent evt;
-  evt.readFrom("$PEEKFILE");
+  if(argc<3){
+    std::cout << "input file and output path not provided" << std::endl;
+    return 1;
+  }
+  std::cout << "running on input file: " << argv[1] << std::endl;
+  std::cout << "writing to output file: " << argv[2] << std::endl;
+
+  evt.readFrom(argv[1]);
 
   //create an instance of the xAODTruthCnv algorithm
   //IAlgorithm* myAlg = AthAnalysisHelper::createAlgorithm("xAODMaker::xAODTruthCnvAlg/myAlg");
@@ -84,10 +92,10 @@ int main() {
 
         
   
-
+  TCanvas c;
   m_ll[1]->SetLineColor(kRed);
   m_ll[0]->Draw();m_ll[1]->Draw("same");
-
-  theApp.Run(kTRUE); //waits
+  c.SaveAs(argv[2]);
+  // theApp.Run(kTRUE); //waits
   return 0;
 }

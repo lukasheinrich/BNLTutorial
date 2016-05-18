@@ -21,6 +21,8 @@ end_private
 
 ##
 
+apply_tag ROOTGraphicsLibs
+
 branches src src/components doc python share
 
 ## default is to make component library. See: https://twiki.cern.ch/twiki/bin/view/Main/LearningAthena#Libraries_in_CMT for alternatives

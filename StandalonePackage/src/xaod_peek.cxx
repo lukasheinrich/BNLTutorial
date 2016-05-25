@@ -11,16 +11,21 @@
 #include "TLorentzVector.h"
 #include "TH1D.h"
 #include "TFile.h"
-
+#include "TCanvas.h"
 #include "TApplication.h"
 
-int main() {
-  TApplication theApp("App",0,0);
+int main(int argc, char* argv[]) {
 
-  //POOL::TEvent::Init("POOLRootAccess/basicxAOD.opts"); //fast reading of xAOD: equivalent of 'import AthenaRootComps.ReadAthenaxAODHybrid'
+
   POOL::TEvent evt;
-  evt.readFrom("$TestArea/derivation/DAOD_TRUTH0.my.daod.root");
+  if(argc<3){
+    std::cout << "input file and output path not provided" << std::endl;
+    return 1;
+  }
+  std::cout << "running on input file: " << argv[1] << std::endl;
+  std::cout << "writing to output file: " << argv[2] << std::endl;
 
+  evt.readFrom(argv[1]);
 
   ToolHandle<DerivationFramework::IAugmentationTool> tool;
   tool.setTypeAndName("DerivationFramework::TruthDressingTool/TruthDressing"); //alternative way to pass constructor argument
@@ -72,10 +77,12 @@ int main() {
 
         
   
-
+  std::cout << "moving on to plotting..." << std::endl;
+  TCanvas c;
   m_ll[1]->SetLineColor(kRed);
   m_ll[0]->Draw();m_ll[1]->Draw("same");
+  c.SaveAs(argv[2]);
 
-  theApp.Run(kTRUE); //waits
+  //theApp.Run(kTRUE); //waits
   return 0;
 }
